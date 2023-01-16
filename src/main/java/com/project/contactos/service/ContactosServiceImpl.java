@@ -2,6 +2,7 @@ package com.project.contactos.service;
 
 import com.project.contactos.model.Contactos;
 import com.project.contactos.repository.ContactosRepository;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,10 +10,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+
 public class ContactosServiceImpl implements ContactosService{
 
     @Autowired
-    private ContactosRepository repository;
+    private final ContactosRepository repository;
+
+    public ContactosServiceImpl(ContactosRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public List<Contactos> getAllContactos() {
         return repository.findAll();
@@ -37,6 +44,7 @@ public class ContactosServiceImpl implements ContactosService{
     public Contactos addContactos(Contactos contactos) {
         return repository.save(contactos);
     }
+
 
     @Override
     public Optional<Contactos> seachById(Long id) {
